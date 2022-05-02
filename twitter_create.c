@@ -75,7 +75,7 @@ void follow(user * a, user * b)
 
 //this function should take two users a and b and make a unfollow b
 
-void delete(user * a, user * b)
+void unfollow(user * a, user * b)
 {
     //condition as to whether a and b are the same user
     if(strcasecmp(a->username, b->username) == 0)
@@ -86,17 +86,50 @@ void delete(user * a, user * b)
 
     //remove b's username from the array that a is following
     //....
-    strcpy(&a->following[a->num_following], b->username);
+    int i;
+
+    for(i = 0; i < a->num_following; i++)
+    {
+        if(strcasecmp(a->following[i], b->username) == 0)
+        {
+            //code to remove b's username...
+            while(i < a->num_following - 1)
+            {
+                strcpy(a->following[i], a->following[i+1]);
+                i++;
+            }
+            break;
+        }
+        else
+        {
+            continue;
+        }
+    }
 
     //decrement the number a is following by 1
-    //....
     a->num_following--;
 
     //update b to not have a as a follower
     //remove a's name from b's followers list
     //...
 
-    strcpy(&b->followers[b->num_followers], a->username);
+    for(i = 0; i < b->num_followers; i++)
+    {
+        if(strcasecmp(a->followers[i], a->username) == 0)
+        {
+            //code to remove a's username...
+            while(i < b->num_followers - 1)
+            {
+                strcpy(b->followers[i], b->followers[i+1]);
+                i++;
+            }
+            break;
+        }
+        else
+        {
+            continue;
+        }
+    }
 
     //decrement the number of followers b has by one
     b->num_followers--;
