@@ -1,6 +1,3 @@
-//
-// Created by jacob on 14/04/2022.
-//
 
 #include <stdio.h>
 #include <string.h>
@@ -15,7 +12,8 @@ void create_twitter_system(twitter * twitter_system)
     int number_of_tweets = 0;
 
     //loop to create the users
-    for(int i = 0; i < MAX_USERS; i++)
+    int i;
+    for(i = 0; i < MAX_USERS; i++)
     {
         printf("Input the username of the next OR Press <Enter> to terminate:\n");
         fgets(users[i].username, USR_LENGHT, stdin);
@@ -56,7 +54,7 @@ void follow(user * a, user * b)
     //condition as to whether a and b are the same user
     if(strcasecmp(a->username, b->username) == 0)
     {
-        printf("A user cannot follow themselves");
+        printf("A user cannot follow themselves\n");
         return;
     }
 
@@ -73,4 +71,33 @@ void follow(user * a, user * b)
 
     //increment the number of followers b has by one
     b->num_followers++;
+}
+
+//this function should take two users a and b and make a unfollow b
+
+void delete(user * a, user * b)
+{
+    //condition as to whether a and b are the same user
+    if(strcasecmp(a->username, b->username) == 0)
+    {
+        printf("A user cannot unfollow themselves\n");
+        return;
+    }
+
+    //remove b's username from the array that a is following
+    //....
+    strcpy(&a->following[a->num_following], b->username);
+
+    //decrement the number a is following by 1
+    //....
+    a->num_following--;
+
+    //update b to not have a as a follower
+    //remove a's name from b's followers list
+    //...
+
+    strcpy(&b->followers[b->num_followers], a->username);
+
+    //decrement the number of followers b has by one
+    b->num_followers--;
 }
