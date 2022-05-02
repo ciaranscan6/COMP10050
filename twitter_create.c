@@ -134,3 +134,15 @@ void unfollow(user * a, user * b)
     //decrement the number of followers b has by one
     b->num_followers--;
 }
+
+void deleteUser(int index, twitter * twitter) //index if user to delete
+{
+    int i;
+
+    for(i = index; i < twitter->num_users - 1; i++)
+    {
+        twitter->users[i] = twitter->users[i+1];
+    }
+
+    twitter->num_users--;
+}
